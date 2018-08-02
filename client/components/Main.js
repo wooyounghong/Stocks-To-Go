@@ -1,9 +1,12 @@
 import React from 'react';
-
+import Search from './Search';
 const Main = () => {
 	return (
 		<div>
-			<div>Hello World</div>
+			<div>
+				SearchBarComponent
+				<Search />
+			</div>
 		</div>
 	);
 };
