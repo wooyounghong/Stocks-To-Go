@@ -1,21 +1,52 @@
 body {
-  font-family: sans-serif;
+	font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 label {
-  display: block;
+	display: block;
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+	display: inline-block;
+	margin: 1em;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+	margin: 1em;
+	display: inline-block;
 }
+
+.search-container {
+	width: 700px;
+	margin: 50px auto;
+}
+.search-bar-container {
+	width: 600px;
+	margin-left: 0px;
+	background-color: white;
+}
+.platform-title {
+	margin-left: 75px;
+}
+.search-bar {
+	width: 500px;
+}
+.btn-search-submit {
+	width: 70px;
+	height: 39px;
+}
+/* 
+container for flex-box
+.dummy-container {
+  display: flex;
+  flex-direction: row;
+  // number of itmes in a row
+}
+
+.dummy-item {
+  list item css!
+} */

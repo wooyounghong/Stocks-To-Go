@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { MainNavbar } from './components';
 import MainRoute from './MainRoute';
 
