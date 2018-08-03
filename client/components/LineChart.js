@@ -1,62 +1,78 @@
 import React from 'react';
-import LineChart from './';
-import * as d3 from 'd3';
-import chroma from 'chroma-js';
+import { connect } from 'react-redux';
+import {
+	XYPlot,
+	XAxis,
+	YAxis,
+	HorizontalGridLines,
+	LineSeries,
+	VerticalGridLines
+} from 'react-vis';
+const data = [{ date: 0, high: 0 }, { date: 100, high: 2 }];
 
-class Chart extends React.Component {
-	state = {
-		highs: null,
-		lows: null
-	};
-
-	xScale = d3.scaleTime().range([margin.left, width - margin.right]); // take in time
-	yScale = d3.scaleLinear().range([0, width / 2]); // take in date
-	lineGenerator = d3.line();
-
-	xAxis = d3
-		.axisBottom()
-		.scale(this.xScale)
-		.tickFormat(d3.timeFormat('%b'));
-	yAxis = d3
-		.axisLeft()
-		.scale(this.yScale)
-		.tickFormat(d => `${d}`);
-
-	componentWillReceiveProps(nextProps) {
-		const { data } = nextProps;
-		// if data is not loaded yet, return nothing;
-		if (!data) return;
-
-		// update scales
-		const timeDomain = d3.extend(data, d => d.date);
-		const tempMax = d3.max(data, d => d.high);
-		this.xScale.domain(timeDomain);
-		this.yScale.domain([0, tempMax]);
-		// create a line generator with d3
-		this.lineGenerator.x(d => this.xScale(d.date));
-		this.lineGenerator.y(d => this.yScale(d.high));
-		const highs = this.lineGenerator(data);
-
-		console.log(highs);
-		this.setState({ highs });
-  }
-  
-  componentDidUpdate() {
-    d3.select(this.refs.xAxis).call(xAxis)
-    d3.select(this.refs.yAxis).call(yAxis)
-  }
-
+class LineChart extends React.Component {
+	constructor() {
+		super();
+		this.renderChart = this.renderChart.bind(this);
+	}
+	renderChart() {
+		// console.log('data', Number(this.props.company[0].date.split('-').join()));
+		// if (this.props.company.length > 1) {
+		// 	for (let i = 0; i < this.props.company.length; i++) {
+		// 		if (i % 2 === 0) {
+		// 			console.log('hi', typeof this.props.company[i].date);
+		// 			return [
+		// 				{
+		// 					x: Number(this.props.company[i].date.split('-').join('')),
+		// 					y: this.props.company[i].high
+		// 				},
+		// 				{
+		// 					x: Number(this.props.company[i + 1].date.split('-').join('')),
+		// 					y: this.props.company[i + 1].high
+		// 				}
+		// 			];
+		// 		}
+		// 	}
+		// }
+		const create = this.props.company.map(comp => {
+			return {
+				x: comp.date.split('-').join(''),
+				y: comp.high
+			};
+		});
+		return create;
+	}
 	render() {
 		return (
-			<svg width={width} height={height}>
-				<path d={this.state.highs} fill="none" stroke={red} />
-				<path d={this.state.lows} fill="none" stroke={blue} />
-
-        <g>
-          <g ref='xAxis' transform={`translate(0, ${height - margin.bottom}`}/>
-          <g ref="yAxis" />
-        </g>
-			</svg>
+			// <XYPlot width={300} height={300} xType="ordinal" color="white">
+			// 	<VerticalGridLines />
+			// 	<HorizontalGridLines />
+			// 	<XAxis title="Dates" />
+			// 	<YAxis title="Dollars" />
+			// 	<LineSeries
+			// 		data={[
+			// 			{ x: 1, y: 4 },
+			// 			{ x: 5, y: 2 },
+			// 			{ x: 15, y: 6 },
+			// 			{ x: 29, y: 300 }
+			// 		]}
+			// 	/>
+			// </XYPlot>
+			<XYPlot width={500} height={500} xType="ordinal">
+				<HorizontalGridLines />
+				<VerticalGridLines />
+				<XAxis title="Dates" />
+				<YAxis title="Dollars" />
+				{/* <LineSeries data={[{ x: 1, y: 4 }, { x: 5, y: 2 }, { x: 15, y: 6 }]} /> */}
+				{this.renderChart && <LineSeries data={this.renderChart()} />}
+				{/* <LineSeries data={[{ x: 1, y: 10 }, { x: 2, y: 5 }]} /> */}
+			</XYPlot>
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	company: state.company
+});
+
+export default connect(mapStateToProps)(LineChart);

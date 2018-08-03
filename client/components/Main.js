@@ -1,12 +1,12 @@
 import React from 'react';
 import Search from './Search';
-import LineStockChart from './LineStockChart';
+import LineChart from './LineChart';
 const Main = () => {
 	return (
 		<div>
 			<div>
 				<Search />
-				<LineStockChart />
+				<LineChart />
 			</div>
 		</div>
 	);
