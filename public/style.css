@@ -337,3 +337,8 @@ container for flex-box
 .rv-radial-chart .rv-xy-plot__series--label {
 	pointer-events: none;
 }
+
+.stock-info-container {
+	display: flex;
+	flex-direction: row;
+}

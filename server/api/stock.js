@@ -10,4 +10,11 @@ router.get('/:company/:time', async (req, res, next) => {
 	res.send(data);
 });
 
+router.get('/:company', async (req, res, next) => {
+	const { data } = await axios.get(
+		`https://api.iextrading.com/1.0/stock/${req.params.company}/quote`
+	);
+	res.send(data);
+});
+
 module.exports = router;
