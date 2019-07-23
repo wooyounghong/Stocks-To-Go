@@ -90,7 +90,7 @@ class LineChart1Y extends React.Component {
 					{this.state.predictStock && <LineSeries data={this.predictStock()} />}
 					{/* </FlexibleWidthXYPlot> */}
 				</XYPlot>
-				<button onClick={this.clickHandler}>PREDICT STOCK!</button>
+				<button onClick={this.clickHandler}>Moving Average</button>
 			</div>
 		);
 	}
